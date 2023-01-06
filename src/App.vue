@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <div class="post" v-for="post in posts" :key="post.id">
+    <h1>{{ postsCount }}</h1>
+    <div class="post" v-for="post in getPost" :key="post.id">
       <h2>{{ post.title }}</h2>
       <p>{{ post.body }}</p>
     </div>
@@ -8,18 +9,20 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
-  data () {
-    return {
-      posts: []
-    }
-  },
+  // computed: {
+  //   allPost () {
+  //     return this.$store.getters.getPost
+  //   }
+  // },
+  // Гетер функция принимает массив строкой название из Vuex
+  computed: mapGetters(['getPost', 'postsCount']),
+  methods: mapActions(['fetchPosts']),
   async mounted () {
-    // fetch возвращает promes мы его ждем await и заносим в константу
-    const res  = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=3')
-    //распарсить respons метод json возвращает промес
-    const posts = await res.json()
-    this.posts = posts
+    this.fetchPosts()
+    // this.$store.dispatch('fetchPosts') ЛИБО ТАК либо через methods + import
   }
 }
 </script>
