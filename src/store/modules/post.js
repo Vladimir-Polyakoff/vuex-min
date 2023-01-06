@@ -3,17 +3,25 @@ export default {
     posts: []
   },
   getters: {
+    validPosts (state) {
+      return state.posts.filter(post => {
+        return post.title && post.body
+      })
+    },
     getPost (state) {
       return state.posts
     },
-    postsCount (state) {
-      return state.posts.length
+    postsCount (state, getters) {
+      return getters.validPosts.length
     }
   },
   mutations: {
     //первый параметр state второй то что передаем из action
     updatePosts (state, posts) {
       state.posts = posts
+    },
+    createPost (state, newPost) {
+      state.posts.unshift(newPost)
     }
   },
   actions: {
