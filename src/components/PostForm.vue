@@ -1,11 +1,3 @@
-<template>
-  <form @submit.prevent="submit">
-    <input type="text" placeholder="title" v-model="title">
-    <input type="text" placeholder="body" v-model="body">
-    <button type="submit">Создать пост</button>
-  </form>
-</template>
-
 <script>
 import { mapMutations } from 'vuex'
 
@@ -31,6 +23,15 @@ export default {
   }
 }
 </script>
+
+<template>
+  <form @submit.prevent="submit">
+    <input type="text" placeholder="title" v-model="title">
+    <input type="text" placeholder="body" v-model="body">
+    <button type="submit">Создать пост</button>
+  </form>
+</template>
+
 <style scoped>
   input {
     display: block;
